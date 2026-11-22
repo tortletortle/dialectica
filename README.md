@@ -2,8 +2,8 @@
 
 Adaptive multi-agent deliberation research prototype.
 
-## V0.4
-Adds discounted competence estimates, a recent-vs-history drift alarm, weak cross-domain prior transfer, Wilson lower-bound abstention, and pairwise correlated-failure monitoring.
+## V0.5
+Adds independent-review aggregation, provenance-aware evidence grouping, explicit minority/dissent retention, and structurally validated counterexample candidates.
 
 ## Run
 ```bash
@@ -11,11 +11,12 @@ python -m unittest discover -s tests -v
 python -m dialectica.demo
 ```
 
-## Important limitations
-- Synthetic/scripted agent evaluation only; no real LLM integration.
-- Outcomes are evaluator-provided binary labels, not verified ground truth.
-- Drift alarm is a simple window heuristic, not a calibrated statistical change-point test.
-- Pairwise co-failure frequency is not causal dependence and is unreliable with small samples.
-- Wilson bounds assume independent Bernoulli trials; repeated or correlated tasks violate this assumption.
-- Cross-domain transfer is a weak prior, not demonstrated transfer learning.
-- No semantic argument graph, retrieval, LangGraph runtime, or 3D interface.
+## Evidence semantics
+Evidence tiers describe provenance and reproducibility metadata, not truth. Distinct independence groups are counted to avoid treating repeated citations from one origin as independent corroboration. Review aggregation is descriptive; a majority vote does not prove a claim. Counterexample validation checks only that a candidate references a known claim; empirical falsification requires a separate test and recorded result.
+
+## Limitations
+- Scripted/synthetic agents only; no real LLM integration.
+- Reviewer independence is an input assumption, not enforced by separate model instances.
+- Evidence authenticity and factual correctness are not automatically verified.
+- No live retrieval, code execution sandbox, LangGraph runtime, or 3D interface.
+- Prior versions' drift, Wilson-bound and co-failure metrics retain their stated statistical assumptions.
