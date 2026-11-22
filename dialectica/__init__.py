@@ -1,0 +1,1 @@
+"""DIALECTICA research prototype."""
