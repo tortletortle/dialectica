@@ -1,0 +1,27 @@
+{
+  "conditions": {
+    "closed_world_model": {
+      "bayes_error": {"accuracy": 0.7144, "mean_experiments_used": 3.0, "mean_log_loss": 3.1761652501724993, "mean_max_posterior": 0.7856171081322239, "mean_unknown_confidence": 0.7071545711990489, "unknown_recall": 0.0},
+      "eig": {"accuracy": 0.7088, "mean_experiments_used": 3.0, "mean_log_loss": 3.122771730486254, "mean_max_posterior": 0.7834603039088126, "mean_unknown_confidence": 0.692324464768946, "unknown_recall": 0.0},
+      "eig_per_cost": {"accuracy": 0.7152, "mean_experiments_used": 3.0, "mean_log_loss": 3.1070613344612097, "mean_max_posterior": 0.790869474396606, "mean_unknown_confidence": 0.6928978764635741, "unknown_recall": 0.0},
+      "evsi_per_cost": {"accuracy": 0.7152, "mean_experiments_used": 3.0, "mean_log_loss": 3.144421951591147, "mean_max_posterior": 0.7925079372980338, "mean_unknown_confidence": 0.7097518481658224, "unknown_recall": 0.0},
+      "random": {"accuracy": 0.6584, "mean_experiments_used": 3.0, "mean_log_loss": 3.2972508915743535, "mean_max_posterior": 0.7185358643312966, "mean_unknown_confidence": 0.6728824265642445, "unknown_recall": 0.0},
+      "simple_mean_separation": {"accuracy": 0.5182, "mean_experiments_used": 3.0, "mean_log_loss": 3.4866001153809774, "mean_max_posterior": 0.5804710105140741, "mean_unknown_confidence": 0.5742587975649647, "unknown_recall": 0.0}
+    },
+    "explicit_unknown_model": {
+      "bayes_error": {"accuracy": 0.7266, "mean_experiments_used": 3.0, "mean_log_loss": 0.7110554151390457, "mean_max_posterior": 0.735869475455701, "mean_unknown_confidence": 0.648180895957185, "unknown_recall": 0.32991803278688525},
+      "eig": {"accuracy": 0.7216, "mean_experiments_used": 3.0, "mean_log_loss": 0.6878148288942318, "mean_max_posterior": 0.7338135178358297, "mean_unknown_confidence": 0.6349778895354958, "unknown_recall": 0.3319672131147541},
+      "eig_per_cost": {"accuracy": 0.7312, "mean_experiments_used": 3.0, "mean_log_loss": 0.6841344188327042, "mean_max_posterior": 0.7399127844220261, "mean_unknown_confidence": 0.634961208554868, "unknown_recall": 0.4077868852459016},
+      "evsi_per_cost": {"accuracy": 0.7198, "mean_experiments_used": 3.0, "mean_log_loss": 0.716310354466034, "mean_max_posterior": 0.7302131951036949, "mean_unknown_confidence": 0.6184387098208141, "unknown_recall": 0.4098360655737705},
+      "random": {"accuracy": 0.6674, "mean_experiments_used": 3.0, "mean_log_loss": 0.859823589419674, "mean_max_posterior": 0.6717625265883455, "mean_unknown_confidence": 0.6049601831214225, "unknown_recall": 0.3094262295081967},
+      "simple_mean_separation": {"accuracy": 0.531, "mean_experiments_used": 3.0, "mean_log_loss": 1.0329838788088772, "mean_max_posterior": 0.5438907712088225, "mean_unknown_confidence": 0.536198451649371, "unknown_recall": 0.38114754098360654}
+    }
+  },
+  "metadata": {
+    "experiment_budget": 3,
+    "note": "Synthetic benchmark; likelihoods are known to the simulator and do not represent empirical hardware behavior.",
+    "runs_per_condition": 5000,
+    "seed": 20261123,
+    "truth_prior": {"cpu": 0.3, "gpu": 0.3, "memory": 0.3, "other": 0.1}
+  }
+}
