@@ -2,9 +2,8 @@
 
 Adaptive multi-agent deliberation research prototype.
 
-## V0.3 scope
-This release studies online agent selection under uncertain competence estimates.
-It is a simulation harness, **not** a validated reasoning system and does not call LLM APIs.
+## V0.4
+Adds discounted competence estimates, a recent-vs-history drift alarm, weak cross-domain prior transfer, Wilson lower-bound abstention, and pairwise correlated-failure monitoring.
 
 ## Run
 ```bash
@@ -12,11 +11,11 @@ python -m unittest discover -s tests -v
 python -m dialectica.demo
 ```
 
-## Model
-Each agent has a Beta posterior per task domain. Thompson Sampling selects an agent using sampled competence, with a bounded exploration floor. Feedback updates the posterior only from externally supplied evaluation outcomes.
-
-## Limitations
-- Simulated agents and synthetic tasks only.
-- Reward labels are assumed to be supplied by an evaluator; the prototype does not establish truth.
-- No semantic duplicate detection, evidence retrieval, LangGraph integration, UI, or 3D scene.
-- Results from this simulator cannot support claims about real-world decision accuracy.
+## Important limitations
+- Synthetic/scripted agent evaluation only; no real LLM integration.
+- Outcomes are evaluator-provided binary labels, not verified ground truth.
+- Drift alarm is a simple window heuristic, not a calibrated statistical change-point test.
+- Pairwise co-failure frequency is not causal dependence and is unreliable with small samples.
+- Wilson bounds assume independent Bernoulli trials; repeated or correlated tasks violate this assumption.
+- Cross-domain transfer is a weak prior, not demonstrated transfer learning.
+- No semantic argument graph, retrieval, LangGraph runtime, or 3D interface.
