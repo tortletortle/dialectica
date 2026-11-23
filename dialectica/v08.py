@@ -260,3 +260,53 @@ def select_robust_experiment(
     else:
         raise ValueError(f"unknown strategy: {strategy}")
     return max(metrics, key=key)[0]
+
+
+@dataclass(frozen=True)
+class EnsembleEGIGResult:
+    weighted_mean_egig: float
+    worst_case_egig: float
+    scenario_scores: Tuple[float, ...]
+    scenario_weights: Tuple[float, ...]
+
+
+def ensemble_egig(
+    prior: Mapping[str, float],
+    experiment_id: str,
+    cost: float,
+    working_likelihoods: Mapping[str, Mapping[str, float]],
+    plausible_true_models: Sequence[Mapping[str, Mapping[str, float]]],
+    scenario_weights: Optional[Sequence[float]] = None,
+) -> EnsembleEGIGResult:
+    """Aggregate EGIG over a caller-supplied ensemble of plausible true models.
+
+    The weighted mean is EGIG under the mixture true model because EGIG is
+    linear in the true joint distribution for a fixed working posterior.
+    The worst-case score is a conservative minimax extension, not canonical
+    EGIG. The plausible model set and weights remain caller assumptions.
+    """
+    if not plausible_true_models:
+        raise ValueError("at least one plausible true model is required")
+    count = len(plausible_true_models)
+    if scenario_weights is None:
+        weights = tuple(1.0 / count for _ in plausible_true_models)
+    else:
+        if len(scenario_weights) != count:
+            raise ValueError("scenario_weights length must match plausible_true_models")
+        normalized = _distribution(
+            {str(i): value for i, value in enumerate(scenario_weights)},
+            "scenario_weights",
+        )
+        weights = tuple(normalized[str(i)] for i in range(count))
+    scores = []
+    for index, true_model in enumerate(plausible_true_models):
+        pair = ModelPairExperiment(
+            f"{experiment_id}:scenario:{index}",
+            cost,
+            true_model,
+            working_likelihoods,
+        )
+        scores.append(expected_generalized_information_gain(prior, pair))
+    weighted = sum(weight * score for weight, score in zip(weights, scores))
+    active_scores = [score for weight, score in zip(weights, scores) if weight > 0]
+    return EnsembleEGIGResult(weighted, min(active_scores), tuple(scores), weights)
