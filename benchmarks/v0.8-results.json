@@ -1,0 +1,17 @@
+{
+  "metadata": {"runs":5000,"seed":20261123,"prior":{"A":0.5,"B":0.5},"designs":4,"note":"Hand-authored finite likelihoods. True likelihoods are known only to the simulator. No LLM or real-world system is evaluated."},
+  "candidate_criteria": {
+    "overconfident_misspec":{"working_eig":0.637145646205098,"true_eig":0.020135513550688863,"egig":-1.1549510953473923,"posterior_error_penalty":1.175086608898081,"robust_kl_information":-1.154951095347392,"likelihood_error_penalty":1.175086608898081},
+    "spurious_signal":{"working_eig":0.3680642071684971,"true_eig":0.0,"egig":-0.5108256237659906,"posterior_error_penalty":0.5108256237659907,"robust_kl_information":-0.5108256237659907,"likelihood_error_penalty":0.5108256237659907},
+    "calibrated_signal":{"working_eig":0.13081203594113697,"true_eig":0.13081203594113697,"egig":0.13081203594113697,"posterior_error_penalty":0.0,"robust_kl_information":0.13081203594113697,"likelihood_error_penalty":0.0},
+    "strong_calibrated_signal":{"working_eig":0.2704380927539544,"true_eig":0.2704380927539544,"egig":0.2704380927539544,"posterior_error_penalty":0.0,"robust_kl_information":0.2704380927539544,"likelihood_error_penalty":0.0}
+  },
+  "strategy_selection":{"random":"random","working_eig":"overconfident_misspec","true_eig_oracle":"strong_calibrated_signal","egig":"strong_calibrated_signal","robust_kl":"strong_calibrated_signal"},
+  "strategies":{
+    "random":{"selected_experiment":"random","accuracy":0.6834,"mean_log_loss":0.9864116088997834,"mean_brier":0.54608424,"mean_confidence":0.871588,"mean_posterior_kl":0.4123632775047532},
+    "working_eig":{"selected_experiment":"overconfident_misspec","accuracy":0.6108,"mean_log_loss":1.7984709815258837,"mean_brier":0.763032,"mean_confidence":0.99,"mean_posterior_kl":1.175086608898081},
+    "true_eig_oracle":{"selected_experiment":"strong_calibrated_signal","accuracy":0.8544,"mean_log_loss":0.4150768431622832,"mean_brier":0.24884,"mean_confidence":0.85,"mean_posterior_kl":0.0},
+    "egig":{"selected_experiment":"strong_calibrated_signal","accuracy":0.8544,"mean_log_loss":0.4150768431622832,"mean_brier":0.24884,"mean_confidence":0.85,"mean_posterior_kl":0.0},
+    "robust_kl":{"selected_experiment":"strong_calibrated_signal","accuracy":0.8544,"mean_log_loss":0.4150768431622832,"mean_brier":0.24884,"mean_confidence":0.85,"mean_posterior_kl":0.0}
+  }
+}
