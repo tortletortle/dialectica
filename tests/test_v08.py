@@ -3,6 +3,7 @@ import unittest
 from dialectica.v08 import (
     ModelPairExperiment,
     evaluate_robust_information,
+    ensemble_egig,
     expected_generalized_information_gain,
     expected_information_gain_for_model,
     likelihood_error_penalty,
@@ -136,6 +137,38 @@ class V08Tests(unittest.TestCase):
         self.assertGreater(egig, robust)
         self.assertGreater(posterior_error_penalty(self.prior, shifted), 0.0)
         self.assertTrue(verify_egig_decomposition(self.prior, shifted))
+
+    def test_ensemble_egig_matches_single_model_when_repeated(self):
+        result = ensemble_egig(self.prior, "repeat", 1.0,
+            self.correct.working_likelihoods,
+            [self.correct.true_likelihoods, self.correct.true_likelihoods])
+        self.assertAlmostEqual(result.weighted_mean_egig,
+            expected_generalized_information_gain(self.prior, self.correct))
+        self.assertAlmostEqual(result.worst_case_egig, result.weighted_mean_egig)
+
+    def test_ensemble_egig_weighted_mean_and_worst_case(self):
+        result = ensemble_egig(self.prior, "ensemble", 1.0,
+            self.correct.working_likelihoods,
+            [self.correct.true_likelihoods, self.overconfident.true_likelihoods],
+            scenario_weights=[.75, .25])
+        expected = .75 * expected_generalized_information_gain(self.prior, self.correct) + .25 * expected_generalized_information_gain(self.prior, self.overconfident)
+        self.assertAlmostEqual(result.weighted_mean_egig, expected)
+        self.assertAlmostEqual(result.worst_case_egig,
+            min(result.scenario_scores))
+
+    def test_ensemble_egig_rejects_weight_length_mismatch(self):
+        with self.assertRaises(ValueError):
+            ensemble_egig(self.prior, "bad", 1.0,
+                self.correct.working_likelihoods,
+                [self.correct.true_likelihoods, self.overconfident.true_likelihoods],
+                scenario_weights=[1.0])
+
+    def test_ensemble_egig_rejects_invalid_weights(self):
+        with self.assertRaises(ValueError):
+            ensemble_egig(self.prior, "bad", 1.0,
+                self.correct.working_likelihoods,
+                [self.correct.true_likelihoods, self.overconfident.true_likelihoods],
+                scenario_weights=[.2, .2])
 
 
 if __name__ == "__main__":
