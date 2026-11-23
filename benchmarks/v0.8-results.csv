@@ -1,0 +1,6 @@
+strategy,selected_experiment,accuracy,mean_log_loss,mean_brier,mean_confidence,mean_posterior_kl
+random,random,0.6834,0.9864116088997834,0.54608424,0.871588,0.4123632775047532
+working_eig,overconfident_misspec,0.6108,1.7984709815258837,0.763032,0.99,1.175086608898081
+true_eig_oracle,strong_calibrated_signal,0.8544,0.4150768431622832,0.24884,0.85,0.0
+egig,strong_calibrated_signal,0.8544,0.4150768431622832,0.24884,0.85,0.0
+robust_kl,strong_calibrated_signal,0.8544,0.4150768431622832,0.24884,0.85,0.0
