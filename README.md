@@ -2,34 +2,34 @@
 
 Adaptive multi-agent deliberation and experimental-reasoning research prototype.
 
-## Current version: V0.7
+## Current version: V0.8
 
-V0.7 adds a finite Bayesian model-discrimination engine:
-- exact discrete expected information gain (EIG);
-- expected 0–1 Bayes classification error;
-- expected value of sample information (EVSI), using explicit utilities;
-- EIG/cost and EVSI/cost selection baselines;
-- robust EIG across supplied prior scenarios;
-- a low-predictive-probability model-mismatch screening diagnostic;
-- explicit residual/unknown hypothesis support;
-- pairwise predictive separation and a Pareto frontier;
-- a reproducible synthetic CPU/memory/GPU/unknown benchmark.
+V0.8 adds finite-discrete robust information criteria under explicit model misspecification:
+- working-model EIG and oracle true-model EIG;
+- Expected Generalized Information Gain (EGIG);
+- expected posterior-mismatch KL penalty;
+- KL-instantiated Robust f-Information Measure;
+- support checks for finite posterior divergences;
+- a reproducible synthetic stress test where working-model EIG becomes overconfident and inaccurate.
 
 ## Run
 
     python -m unittest discover -s tests -v
     python -m dialectica.benchmark_v07
+    python -m dialectica.benchmark_v08
 
-## Research note and results
+## Research notes and results
 
-Read docs/v0.7-research-note.md and docs/references.md. Machine-readable results are in benchmarks/v0.7-results.json and benchmarks/v0.7-results.csv.
+- docs/v0.7-research-note.md — finite Bayesian experiment selection.
+- docs/v0.8-research-note.md — EGIG and robust information under misspecification.
+- docs/references.md — core papers.
+- benchmarks/v0.7-results.json and benchmarks/v0.7-results.csv.
+- benchmarks/v0.8-results.json and benchmarks/v0.8-results.csv.
 
 ## Important limitations
 
-- Synthetic, hand-authored likelihoods; no real hardware measurements.
-- No real LLM agents, LangGraph orchestration, retrieval pipeline, or 3D interface.
-- EIG/EVSI are exact only relative to the supplied finite likelihood and utility models.
-- The residual hypothesis is explicitly supplied; it is not discovered automatically.
-- Robust EIG only varies supplied priors; it does not solve arbitrary model misspecification.
-- The mean-separation score is not full classical T-optimal design.
-- Predictive surprise is a screening heuristic, not a calibrated statistical test.
+- V0.8 uses hand-specified finite categorical true and working likelihoods.
+- The true model is an oracle available only in the synthetic benchmark; real deployments need model ensembles, external evidence, or sensitivity analysis.
+- EGIG and RFIM-KL are exact only for supplied likelihood tables and the shared-prior assumption.
+- No real LLM agents, LangGraph orchestration, automated retrieval, hardware experiment execution, or 3D interface.
+- R-IDeA has been researched but not ported into the finite hypothesis engine; its original regression/active-learning assumptions require a separate reproduction benchmark.
