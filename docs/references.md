@@ -6,3 +6,8 @@
 4. **Catanach, T. A., & Das, N. (2023).** Metrics for Bayesian Optimal Experiment Design under Model Misspecification. arXiv:2304.07949. https://arxiv.org/abs/2304.07949. Earlier development of EGIG and Expected Discriminatory Information.
 5. **Gretton, A., et al. (2012).** A Kernel Two-Sample Test. Journal of Machine Learning Research, 13, 723–773. https://www.jmlr.org/papers/v13/gretton12a.html. Foundation for MMD as a distribution discrepancy measure used by R-I.
 6. **Atkinson, A. C., & Fedorov, V. V. (1975).** Optimal Design: Experiments for Discriminating between Several Models. Biometrika, 62(2), 289–303. DOI: https://doi.org/10.1093/biomet/62.2.289.
+
+## Reproduction code
+
+- R-IDeA supplementary implementation: https://github.com/TrbingWY/robust-boed
+- EGIG AISTATS 2026 supplementary implementation: https://github.com/jcallahan4/misinformation-statistical-experiment
