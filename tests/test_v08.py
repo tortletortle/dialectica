@@ -127,6 +127,16 @@ class V08Tests(unittest.TestCase):
         self.assertGreater(rows["working_eig"]["mean_posterior_kl"],
                            rows["egig"]["mean_posterior_kl"])
 
+    def test_egig_and_robust_kl_differ_with_predictive_marginal_shift(self):
+        shifted = ModelPairExperiment("marginal-shift", 1.0,
+            {"A": {"yes": .90, "no": .10}, "B": {"yes": .30, "no": .70}},
+            {"A": {"yes": .80, "no": .20}, "B": {"yes": .20, "no": .80}})
+        egig = expected_generalized_information_gain(self.prior, shifted)
+        robust = robust_kl_information(self.prior, shifted)
+        self.assertGreater(egig, robust)
+        self.assertGreater(posterior_error_penalty(self.prior, shifted), 0.0)
+        self.assertTrue(verify_egig_decomposition(self.prior, shifted))
+
 
 if __name__ == "__main__":
     unittest.main()
